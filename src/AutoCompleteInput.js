@@ -173,9 +173,15 @@ export default class AutoCompleteInput extends React.Component {
         <View style={styles.listViewContainer}>
           <AutoCompleteListView
             predictions={this.state.predictions}
+            savedLocation={this.props.savedLocation}
+            text={this.state.text}
+            setLocation={this.props.setLocation}
+            onSelect={(text)=>{
+              this.setState({text})
+            }}
           />
         </View>
       </Animated.View>
     );
   }
-}
+} 
