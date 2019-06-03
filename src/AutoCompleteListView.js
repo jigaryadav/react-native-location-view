@@ -86,8 +86,17 @@ export default class AutoCompleteListView extends React.Component {
   _renderItem({item}) {
     const TouchableControl = Platform.OS === 'ios' ? TouchableOpacity : TouchableNativeFeedback;
     const {structured_formatting} = item;
+    let savedLocation = this.props.savedLocation
+    let text = this.props.text
     return (
-      <TouchableControl onPress={() => Events.trigger('PlaceSelected', item.place_id)}>
+      <TouchableControl onPress={() => { 
+        if(!text && savedLocation.length>0){
+          this.props.onSelect(structured_formatting.main_text)
+          this.props.setLocation(item.latLong) //send lat long 
+        }else{
+          Events.trigger('PlaceSelected', item.place_id); 
+        }
+        }}>
         <View style={styles.row}>
           <Text
             style={styles.primaryText}
@@ -108,12 +117,14 @@ export default class AutoCompleteListView extends React.Component {
 
   _getFlatList = () => {
     const style = this.state.inFocus ? null : {height: 0};
+    let savedLocation = this.props.savedLocation
+    let text = this.props.text
     return (
       <FlatList
         showsVerticalScrollIndicator={false}
         elevation={3}
         style={[styles.list, style]}
-        data={this.props.predictions}
+        data={!text && savedLocation.length>0 ? savedLocation : this.props.predictions}
         renderItem={this._renderItem.bind(this)}
         ItemSeparatorComponent={() => <View style={styles.separator}/>}
         keyboardShouldPersistTaps={'handled'}
