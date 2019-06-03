@@ -126,6 +126,15 @@ export default class LocationView extends React.Component {
     });
   }
 
+  setLocation = (data) =>{
+    this.setState({
+      region:{
+        ...this.state.region,
+        ...data
+      }
+    })
+  }
+
   render() {
     let {inputScale} = this.state;
     return (
@@ -147,6 +156,8 @@ export default class LocationView extends React.Component {
             apiKey={this.props.apiKey}
             style={[styles.input, {transform: [{scale: inputScale}]}]}
             debounceDuration={this.props.debounceDuration}
+            savedLocation={this.props.savedLocation}
+            setLocation={this.setLocation}
           />
         </View>
         <TouchableOpacity style={[styles.currentLocBtn, {backgroundColor: this.props.markerColor}]} onPress={this._getCurrentLocation}>
