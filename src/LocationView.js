@@ -149,7 +149,7 @@ export default class LocationView extends React.Component {
           onRegionChange={this._onMapRegionChange}
           onRegionChangeComplete={this._onMapRegionChangeComplete}
         />
-        <Entypo name={'location-pin'} size={30} color={this.props.markerColor} style={{backgroundColor: 'transparent'}}/>
+        {this.props.renderMarker? this.props.renderMarker() : <Entypo name={'location-pin'} size={30} color={this.props.markerColor} style={{backgroundColor: 'transparent'}}/>}
         <View style={styles.fullWidthContainer}>
           <AutoCompleteInput
             ref={input => this._input = input}
