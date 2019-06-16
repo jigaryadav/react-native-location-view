@@ -141,6 +141,9 @@ export default class LocationView extends React.Component {
       <View style={styles.container}>
         <MapView
           ref={(mapView) => this._map = mapView}
+          onMapReady={()=>{
+             this._getCurrentLocation();
+          }}
           style={styles.mapView}
           region={this.state.region}
           showsMyLocationButton={true}
