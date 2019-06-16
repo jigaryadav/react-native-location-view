@@ -142,9 +142,11 @@ export default class LocationView extends React.Component {
         <MapView
           ref={(mapView) => this._map = mapView}
           onMapReady={()=>{
-             setTimeout(()=>{
-                 this._getCurrentLocation();        
-             }, 500)         
+            if(this.props.autoCenter){
+              setTimeout(()=>{
+                  this._getCurrentLocation();        
+              }, 500)         
+            }       
           }}
           style={styles.mapView}
           region={this.state.region}
